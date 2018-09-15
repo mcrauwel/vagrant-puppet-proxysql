@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  sudo: yes
+  become: yes
   tasks:
     - name: "Install puppet agent - Debian"
       include: "install-Debian.yml"
@@ -14,8 +14,10 @@
 
     - name: "Install puppet module dependencies (puppetlabs-mysql)"
       shell: "/opt/puppetlabs/bin/puppet module install puppetlabs-mysql -v 6.1.0"
-      creates: "/vagrant/modules/mysql"
+      args:
+        creates: "/vagrant/modules/mysql"
 
     - name: "Install puppet module dependencies (puppetlabs-apt)"
       shell: "/opt/puppetlabs/bin/puppet module install puppetlabs-apt -v 6.0.0"
-      creates: "/vagrant/modules/apt"
+      args:
+        creates: "/vagrant/modules/apt"
